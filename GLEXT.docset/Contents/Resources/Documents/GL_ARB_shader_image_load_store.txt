@@ -4,7 +4,7 @@ Name
 
 Name Strings
 
-    ARB_shader_image_load_store
+    GL_ARB_shader_image_load_store
 
 Contact
 
@@ -24,7 +24,7 @@ Contributors
 
 Notice
 
-    Copyright (c) 2011-2013 The Khronos Group Inc. Copyright terms at
+    Copyright (c) 2011-2014 The Khronos Group Inc. Copyright terms at
         http://www.khronos.org/registry/speccopyright.html
 
 Status
@@ -34,8 +34,8 @@ Status
 
 Version
 
-    Last Modified Date:         October 16, 2013
-    Revision:                   33
+    Last Modified Date:         September 11, 2014
+    Revision:                   35
 
 Number
 
@@ -735,7 +735,7 @@ Additions to Chapter 3 of the OpenGL 3.2 (Compatibility Profile) Specification
     considered to use a texture target corresponding to the bound layer,
     rather than that of the full texture.
 
-                                             face/
+                                                   Face/
                                           i  j  k  layer
                                           -- -- -- -----
         TEXTURE_1D                        x  -  -    -
@@ -758,7 +758,8 @@ Additions to Chapter 3 of the OpenGL 3.2 (Compatibility Profile) Specification
     texture is bound with <layered> set to FALSE, or from the coordinate
     identified by Table X.1 otherwise.  For cube map and cube map array
     textures with <layered> set to TRUE, the coordinate is mapped to a layer
-    and face in the same manner as the <layer> argument of BindImageTexture.
+    and face in the same manner as described for the <layer> argument of
+    BindImageTexture.
 
     If the individual texel identified for an image load, store, or atomic
     operation doesn't exist, the access is treated as invalid.  Invalid image
@@ -1948,9 +1949,11 @@ Issues
         on the amount of state, the number of active samplers in each shader
         stage, and the sum of the active sampler counts in each stage.
 
-      RESOLVED:  No.  It was considered sufficient to have just a limit on the
-      total number of image units in the implementation (i.e., the number of
-      distinct values that the variable can be set to).
+      RESOLVED:  Yes, we provide a similar set of limits.  MAX_IMAGE_UNITS
+      specifies the number of image bindings.  MAX_{VERTEX,...}_IMAGE_UNIFORMS
+      specifies the maximum number of active image uniforms in each shader
+      stage.  MAX_COMBINED_IMAGE_UNIFORMS specifies a limit on the sum of the
+      number of active image uniforms in all stages of a program.
 
     (10) Can this extension be used to load and store values into a buffer
          object?  Into a renderbuffer?
@@ -2360,6 +2363,13 @@ Revision History
 
     Rev.    Date    Author    Changes
     ----  --------  --------  -----------------------------------------------
+    36    10/27/14  pbrown    Fix the "Name Strings" entry to include a "GL_"
+                              prefix.
+
+    35    09/11/14  pbrown    Add missing text for issue (9).
+    
+    34    06/10/14  Jon Leech Minor typo fixes from bug 7263.
+
     33    10/16/13  pbrown    Update issue (20) to clarify that any image
                               stores and atomics issued before a "discard" do
                               have an effect.  Update issue (22) to better
